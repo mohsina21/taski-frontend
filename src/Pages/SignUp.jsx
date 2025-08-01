@@ -35,7 +35,7 @@ export default function SignUp() {
     <div className="flex justify-center items-center h-screen bg-gradient-to-br from-black via-[#0e0e0e] to-[#1f1f1f] font-['Orbitron']">
       <form
         onSubmit={handleSubmit}
-        className="bg-white/10 backdrop-blur-xl text-white border border-purple-500/20 rounded-3xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] p-8 w-80 space-y-4 transition-all duration-300"
+        className="bg-white/10 backdrop-blur-xl text-white border border-purple-500/30 rounded-3xl  p-8 w-80 space-y-4 transition-all duration-300"
       >
         <h2 className="text-2xl font-extrabold text-purple-400 tracking-wider drop-shadow-[0_0_6px_purple] text-center mb-2">
           Create Account

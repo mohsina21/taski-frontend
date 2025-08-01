@@ -48,7 +48,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
         onChange={handleChange}
         placeholder="Task Name"
         required
-        className="w-full p-3 rounded-md bg-white/20 text-black placeholder-gray-600 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="w-full p-3 rounded-md bg-white/20 text-black placeholder-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
 
       <textarea
@@ -57,7 +57,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
         onChange={handleChange}
         placeholder="Description"
         rows={3}
-        className="w-full p-3 rounded-md bg-white/20 text-black placeholder-gray-600 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="w-full p-3 rounded-md bg-white/20 text-black placeholder-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
 
       <select
@@ -65,7 +65,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
         value={taskData.assignee}
         onChange={handleChange}
         required
-        className="w-full p-3 rounded-md bg-transparent text-black border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
+        className="w-full p-3 rounded-md bg-transparent text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
       >
         <option value="">Select Assignee</option>
         {users.map((user) => (
@@ -80,7 +80,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
           name="status"
           value={taskData.status}
           onChange={handleChange}
-          className="p-3 rounded-md bg-transparent text-black border border-white/30 focus:outline-none focus:ring-2 focus:ring-green-400"
+          className="p-3 rounded-md bg-transparent text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-green-400"
         >
           <option>Pending</option>
           <option>In Progress</option>
@@ -91,7 +91,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
           name="priority"
           value={taskData.priority}
           onChange={handleChange}
-          className="p-3 rounded-md bg-transparent text-black border border-white/30 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          className="p-3 rounded-md bg-transparent text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-yellow-400"
         >
           <option>High</option>
           <option>Medium</option>
@@ -105,7 +105,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
           name="dueDate"
           value={taskData.dueDate}
           onChange={handleChange}
-          className="p-3 rounded-md bg-white/20 text-black border border-white/30 focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="p-3 rounded-md bg-white/20 text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-pink-400"
         />
 
         <select
@@ -125,7 +125,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 rounded-md border border-white/30 text-black hover:bg-white/10"
+            className="px-4 py-2 rounded-md border border-white/30 text-white/60 hover:bg-white/10"
           >
             Cancel
           </button>

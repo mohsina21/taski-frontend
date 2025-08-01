@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
   proxy: {
     '/api': {
-      target: 'http://localhost:3001', // Your backend
+      target: 'https://taski-backend-nl91.onrender.com', // Your backend
       changeOrigin: true,
     },
   },
