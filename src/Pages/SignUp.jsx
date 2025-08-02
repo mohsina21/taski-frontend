@@ -47,14 +47,13 @@ export default function SignUp() {
     }
 
     try {
-      console.log("📝 Submitting signup with:", formData);
-      console.log("🌐 API URL:", import.meta.env.VITE_API_URL);
+      
       await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, formData);
-      console.log("✅ Signup successful!");
+      console.log(" Signup successful!");
       alert("Signup successful! You can log in now.");
       navigate("/login");
     } catch (err) {
-      console.error("❌ Signup error:", err.response?.data || err.message);
+      console.error(" Signup error:", err.response?.data || err.message);
       const errorMessage = err.response?.data?.message || "Signup failed. Please try again.";
       setError(errorMessage);
     }

@@ -23,7 +23,7 @@ const fetchTasks = async () => {
       },
     });
 
-    console.log("📋 Raw response from backend:", res.data);
+    
 
     const rawTasks = res.data || []; 
 
@@ -38,7 +38,7 @@ const fetchTasks = async () => {
     console.log("🧹 Cleaned tasks:", cleanedTasks);
     setTasks(cleanedTasks);
   } catch (err) {
-    console.error("❌ Failed to fetch tasks", err);
+    console.error(" Failed to fetch tasks", err);
   }
 };
 
@@ -50,7 +50,7 @@ const fetchTasks = async () => {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-black via-[#0f0f0f] to-[#1a1a1a] text-white font-['Orbitron'] overflow-hidden">
-      {/* Foreground Content */}
+      
       <div className="relative z-10">
         <Navbar />
 
@@ -60,8 +60,8 @@ const fetchTasks = async () => {
           </h2>
 
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-cyan-400 tracking-wide drop-shadow-sm">
-              {user?.role === "admin" ? "🛠 Admin Dashboard" : "📋 My Tasks"}
+            <h1 className="text-3xl md:text-4xl font-extrabold text-purple-400 tracking-wide drop-shadow-sm">
+              {user?.role === "admin" ? " Admin Dashboard" : " My Tasks"}
             </h1>
             <button
               onClick={() => setRefreshKey(prev => prev + 1)}

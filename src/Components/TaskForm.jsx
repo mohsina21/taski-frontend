@@ -115,7 +115,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
           name="dueDate"
           value={taskData.dueDate}
           onChange={handleChange}
-          required={true}
+          required
           className="p-3 rounded-md bg-white/20 text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-pink-400"
         />
 
