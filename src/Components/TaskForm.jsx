@@ -38,7 +38,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
       setTaskData(defaultTask);
       if (onSuccess) onSuccess(res.data);
       
-      // Show success message
+      e
       alert("Task created successfully!");
     } catch (err) {
       console.error(" Error submitting task:", err.response?.data || err.message);
@@ -49,7 +49,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 p-6 rounded-2xl backdrop-blur-lg bg-white/10 shadow-xl border border-white/20 text-white font-orbitron transition-all duration-300"
+      className="space-y-4 p-6 rounded-2xl backdrop-blur-lg bg-black shadow-xl border border-white/20 text-white font-orbitron transition-all duration-300"
     >
       <input
         name="name"
@@ -58,7 +58,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
         onChange={handleChange}
         placeholder="Task Name"
         required
-        className="w-full p-3 rounded-md bg-white/20 text-black placeholder-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="w-full p-3 rounded-md bg-black text-white placeholder-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
       />
 
       <textarea
@@ -67,7 +67,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
         onChange={handleChange}
         placeholder="Description"
         rows={3}
-        className="w-full p-3 rounded-md bg-white/20 text-black placeholder-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="w-full p-3 rounded-md bg-black text-white placeholder-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
       />
 
       <select
@@ -75,11 +75,11 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
         value={taskData.assignee}
         onChange={handleChange}
         required
-        className="w-full p-3 rounded-md bg-transparent text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
+        className="w-full p-3 rounded-md bg-black text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
       >
         <option value="">Select Assignee</option>
         {users.map((user) => (
-          <option key={user._id} value={user._id} className="text-black">
+          <option key={user._id} value={user._id} className="text-white">
             {user.name || user.email}
           </option>
         ))}
@@ -90,7 +90,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
           name="status"
           value={taskData.status}
           onChange={handleChange}
-          className="p-3 rounded-md bg-transparent text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-green-400"
+          className="p-3 rounded-md bg-black text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
         >
           <option>Pending</option>
           <option>In Progress</option>
@@ -101,7 +101,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
           name="priority"
           value={taskData.priority}
           onChange={handleChange}
-          className="p-3 rounded-md bg-transparent text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          className="p-3 rounded-md bg-black text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
         >
           <option>High</option>
           <option>Medium</option>
@@ -116,14 +116,14 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
           value={taskData.dueDate}
           onChange={handleChange}
           required
-          className="p-3 rounded-md bg-white/20 text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="p-3 rounded-md bg-black text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
         />
 
         <select
           name="taskType"
           value={taskData.taskType}
           onChange={handleChange}
-          className="p-3 rounded-md bg-transparent text-black border border-white/30 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="p-3 rounded-md bg-black text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
         >
           <option>Feature</option>
           <option>Bug</option>

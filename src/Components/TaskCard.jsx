@@ -12,13 +12,15 @@ const statusColors = {
   Completed: "text-green-400",
 };
 
-const TaskCard = ({ task, onDelete }) => {
+const TaskCard = ({ task, onDelete, user }) => {
   const [showDetails, setShowDetails] = useState(false);
+
+  const isAdmin = user?.role === "admin";
 
   return (
     <div
       onClick={() => setShowDetails(!showDetails)}
-      className="cursor-pointer p-5 rounded-2xl shadow-lg transition-all backdrop-blur-md bg-black/40 border border-white/10 hover:scale-[1.02] hover:border-white/20 hover:shadow-blue-500/20 text-white font-['Orbitron']"
+      className="cursor-pointer p-5 rounded-2xl shadow-lg transition-transform transform-gpu will-change-transform backdrop-blur-md bg-black/40 border border-white/10 hover:scale-[1.02] hover:border-white/20 hover:shadow-purple-500/20 text-white font-['Orbitron'] overflow: hidden;"
     >
       <div className="flex justify-between items-start mb-2">
         <h3 className="text-lg font-bold tracking-wide">{task.name}</h3>
@@ -45,35 +47,37 @@ const TaskCard = ({ task, onDelete }) => {
       ) : (
         <div className="text-sm text-gray-200 space-y-2 mt-3">
           <p>
-            <span className="text-blue-400">Description:</span> {task.description}
+            <span className="text-purple-400">Description:</span> {task.description}
           </p>
           <p>
-            <span className="text-pink-400">Status:</span> {task.status}
+            <span className="text-purple-400">Status:</span> {task.status}
           </p>
           <p>
-            <span className="text-yellow-400">Priority:</span> {task.priority}
+            <span className="text-purple-400">Priority:</span> {task.priority}
           </p>
           <p>
-            <span className="text-green-400">Type:</span> {task.taskType}
+            <span className="text-purple-400">Type:</span> {task.taskType}
           </p>
           <p>
             <span className="text-purple-400">Due Date:</span> {new Date(task.dueDate).toLocaleDateString()}
           </p>
           <p>
-            <span className="text-orange-300">Assignee:</span> {task.assignee?.name || "Unassigned"}
+            <span className="text-purple-400">Assignee:</span> {task.assignee?.name || "Unassigned"}
           </p>
 
-          <div className="flex justify-end pt-4">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onDelete(task._id);
-              }}
-              className="bg-red-500 hover:bg-red-600 text-white text-xs px-4 py-1 rounded"
-            >
-              Delete
-            </button>
-          </div>
+          {isAdmin && (
+            <div className="flex justify-end pt-4">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete(task._id);
+                }}
+                className="bg-red-500 hover:bg-red-600 text-white text-xs px-4 py-1 rounded"
+              >
+                Delete
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

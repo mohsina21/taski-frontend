@@ -17,7 +17,6 @@ export default function SignUp() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Handle password separately for live feedback
     if (name === "password") {
       validatePassword(value);
     }

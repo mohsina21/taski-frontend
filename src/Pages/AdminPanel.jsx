@@ -64,15 +64,17 @@ export default function AdminPanel() {
 
         <TaskForm onSuccess={handleNewTask} users={users} />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 pb-20">
-          {tasks.map((task) => (
-            <TaskCard
-              key={task._id}
-              task={task}
-              onDelete={() => handleDeleteTask(task._id)}
-            />
-          ))}
-        </div>
+        <div className="flex flex-wrap gap-6 mt-6 pb-20">
+  {tasks.map((task) => (
+    <div key={task._id} className="w-full md:w-[48%] lg:w-[31%]">
+      <TaskCard
+        task={task}
+        onDelete={() => handleDeleteTask(task._id)}
+        user={user}
+      />
+    </div>
+  ))}
+</div>
       </div>
     </div>
   );

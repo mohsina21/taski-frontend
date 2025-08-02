@@ -16,7 +16,7 @@ export default function Dashboard() {
 
 const fetchTasks = async () => {
   try {
-    console.log("🔍 Fetching tasks for user:", user?.id, user?.role);
+    
     const res = await axios.get(`${import.meta.env.VITE_API_URL}/tasks`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ const fetchTasks = async () => {
           : { name: "Unassigned" },
     }));
 
-    console.log("🧹 Cleaned tasks:", cleanedTasks);
+    
     setTasks(cleanedTasks);
   } catch (err) {
     console.error(" Failed to fetch tasks", err);
@@ -63,25 +63,27 @@ const fetchTasks = async () => {
             <h1 className="text-3xl md:text-4xl font-extrabold text-purple-400 tracking-wide drop-shadow-sm">
               {user?.role === "admin" ? " Admin Dashboard" : " My Tasks"}
             </h1>
-            <button
-              onClick={() => setRefreshKey(prev => prev + 1)}
-              className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors duration-200"
-            >
-               Refresh
-            </button>
+            
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tasks.length ? (
-              tasks.map((task) => <TaskCard key={task._id} task={task} />)
-            ) : (
-              <div className="col-span-full text-center text-gray-400 mt-10 text-lg">
-                No tasks found
-              </div>
-            )}
+          <div className="flex flex-wrap gap-6">
+
+
+            <div className="w-full md:w-[48%] lg:w-[31%]">
+              {tasks.length ? (
+                tasks.map((task) => <TaskCard key={task._id} task={task} />)
+              ) : (
+                <div className="col-span-full text-center text-gray-400 mt-10 text-lg">
+                  No tasks found
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+          
+ 
