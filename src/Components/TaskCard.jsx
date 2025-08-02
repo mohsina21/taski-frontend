@@ -20,7 +20,7 @@ const TaskCard = ({ task, onDelete, user }) => {
   return (
     <div
       onClick={() => setShowDetails(!showDetails)}
-      className="cursor-pointer p-5 rounded-2xl shadow-lg transition-transform transform-gpu will-change-transform backdrop-blur-md bg-black/40 border border-white/10 hover:scale-[1.02] hover:border-white/20 hover:shadow-purple-500/20 text-white font-['Orbitron'] overflow: hidden;"
+      className="cursor-pointer p-5 rounded-2xl shadow-lg transition-transform transform-gpu will-change-transform backdrop-blur-md bg-black/40 border border-white/10 hover:scale-[1.02] hover:border-white/20 hover:shadow-purple-500/20 text-white  overflow: hidden;"
     >
       <div className="flex justify-between items-start mb-2">
         <h3 className="text-lg font-bold tracking-wide">{task.name}</h3>
