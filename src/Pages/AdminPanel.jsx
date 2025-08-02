@@ -11,32 +11,32 @@ export default function AdminPanel() {
   const [tasks, setTasks] = useState([]);
   const [users, setUsers] = useState([]);
 
+  const fetchData = async () => {
+    try {
+      const [tasksRes, usersRes] = await Promise.all([
+        axios.get(`${import.meta.env.VITE_API_URL}/tasks`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        axios.get(`${import.meta.env.VITE_API_URL}/users`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+      ]);
+
+      setTasks(tasksRes.data);
+      setUsers(usersRes.data);
+    } catch (err) {
+      console.error("Error fetching admin data", err);
+    }
+  };
+
   useEffect(() => {
     if (!token || user?.role !== "admin") return;
-
-    const fetchData = async () => {
-      try {
-        const [tasksRes, usersRes] = await Promise.all([
-          axios.get(`${import.meta.env.VITE_API_URL}/tasks`, {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          axios.get(`${import.meta.env.VITE_API_URL}/users`, {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-        ]);
-
-        setTasks(tasksRes.data);
-        setUsers(usersRes.data);
-      } catch (err) {
-        console.error("Error fetching admin data", err);
-      }
-    };
-
     fetchData();
   }, [token, user]);
 
   const handleNewTask = (newTask) => {
     setTasks((prev) => [...prev, newTask]);
+    fetchData();
   };
 
   const handleDeleteTask = async (taskId) => {

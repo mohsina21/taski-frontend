@@ -12,22 +12,51 @@ export default function SignUp() {
   });
 
   const [error, setError] = useState("");
-  const [showRules, setShowRules] = useState(false);
+  const [passwordFeedback, setPasswordFeedback] = useState("");
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setError(""); 
+    const { name, value } = e.target;
+
+    // Handle password separately for live feedback
+    if (name === "password") {
+      validatePassword(value);
+    }
+
+    setFormData({ ...formData, [name]: value });
+    setError(""); // Clear error on any change
+  };
+
+  const validatePassword = (pwd) => {
+    if (pwd.length < 8) {
+      setPasswordFeedback("Minimum 8 characters required");
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(pwd)) {
+      setPasswordFeedback("Must include a special character");
+    } else if (!/\d/.test(pwd)) {
+      setPasswordFeedback("Must include a number");
+    } else {
+      setPasswordFeedback(""); 
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (passwordFeedback) {
+      setError(passwordFeedback);
+      return;
+    }
+
     try {
+      console.log("📝 Submitting signup with:", formData);
+      console.log("🌐 API URL:", import.meta.env.VITE_API_URL);
       await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, formData);
+      console.log("✅ Signup successful!");
       alert("Signup successful! You can log in now.");
       navigate("/login");
     } catch (err) {
-      console.error(err);
-      setError(err.response?.data?.message || "Signup failed");
+      console.error("❌ Signup error:", err.response?.data || err.message);
+      const errorMessage = err.response?.data?.message || "Signup failed. Please try again.";
+      setError(errorMessage);
     }
   };
 
@@ -35,15 +64,13 @@ export default function SignUp() {
     <div className="flex justify-center items-center h-screen bg-gradient-to-br from-black via-[#0e0e0e] to-[#1f1f1f] font-['Orbitron']">
       <form
         onSubmit={handleSubmit}
-        className="bg-white/10 backdrop-blur-xl text-white border border-purple-500/30 rounded-3xl  p-8 w-80 space-y-4 transition-all duration-300"
+        className="bg-white/10 backdrop-blur-xl text-white border border-purple-500/30 rounded-3xl p-8 w-80 space-y-4 transition-all duration-300"
       >
         <h2 className="text-2xl font-extrabold text-purple-400 tracking-wider drop-shadow-[0_0_6px_purple] text-center mb-2">
           Create Account
         </h2>
 
-        {error && (
-          <div className="text-red-400 text-sm text-center">{error}</div>
-        )}
+        {error && <div className="text-red-400 text-sm text-center">{error}</div>}
 
         <input
           type="text"
@@ -72,17 +99,11 @@ export default function SignUp() {
             placeholder=" Password"
             value={formData.password}
             onChange={handleChange}
-            onFocus={() => setShowRules(true)}
-            onBlur={() => setShowRules(false)}
             className="w-full p-2 rounded-lg bg-white/10 placeholder-gray-300 text-white border border-purple-400/30 focus:outline-none focus:ring-2 focus:ring-purple-500 backdrop-blur-sm"
             required
           />
-          {showRules && (
-            <ul className="text-xs text-purple-300 mt-1 space-y-1 pl-2 list-disc">
-              <li>Min 8 characters</li>
-              <li>At least 1 special character</li>
-              <li>At least 1 number</li>
-            </ul>
+          {passwordFeedback && (
+            <div className="text-xs text-red-400 mt-1 pl-1">{passwordFeedback}</div>
           )}
         </div>
 

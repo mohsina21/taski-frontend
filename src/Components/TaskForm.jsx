@@ -22,6 +22,9 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("📋 Creating task with:", taskData);
+    console.log("🌐 API URL:", import.meta.env.VITE_API_URL);
+    
     try {
       const config = {
         headers: {
@@ -29,11 +32,17 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
         },
       };
 
-      const res = await axios.post("/api/v1/tasks", taskData, config);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/tasks`, taskData, config);
+      console.log("Task created successfully:", res.data);
+      console.log(" Task assignee ID:", res.data.assignee);
       setTaskData(defaultTask);
       if (onSuccess) onSuccess(res.data);
+      
+      // Show success message
+      alert("Task created successfully!");
     } catch (err) {
-      console.error("Error submitting task:", err.response?.data || err.message);
+      console.error(" Error submitting task:", err.response?.data || err.message);
+      alert("Failed to create task. Please try again.");
     }
   };
 

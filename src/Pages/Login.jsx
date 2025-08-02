@@ -12,11 +12,15 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("🔐 Attempting login with:", { email, password: "***" });
+    console.log("🌐 API URL:", import.meta.env.VITE_API_URL);
+    
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/auth/login`,
         { email, password }
       );
+      console.log("✅ Login successful:", res.data);
       login(res.data.token, res.data.user);
 
       if (res.data.user.role === "admin") {
@@ -26,7 +30,8 @@ export default function Login() {
       }
     } catch (err) {
       console.error("❌ Login failed:", err.response?.data || err.message);
-      alert("Invalid credentials! Check your email and password.");
+      const errorMessage = err.response?.data?.message || "Login failed. Please check your credentials.";
+      alert(errorMessage);
     }
   };
 
