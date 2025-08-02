@@ -59,7 +59,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gradient-to-br from-black via-[#0e0e0e] to-[#1f1f1f] font-['Orbitron']">
+    <div className="flex justify-center items-center h-screen bg-gradient-to-br from-black via-[#0e0e0e] to-[#1f1f1f] ">
       <form
         onSubmit={handleSubmit}
         className="bg-white/10 backdrop-blur-xl text-white border border-purple-500/30 rounded-3xl p-8 w-80 space-y-4 transition-all duration-300"

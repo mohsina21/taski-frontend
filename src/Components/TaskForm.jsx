@@ -1,155 +1,148 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import { AuthContext } from "../context/authContext";
 
-const defaultTask = {
-  name: "",
-  description: "",
-  assignee: "",
-  status: "Pending",
-  priority: "Medium",
-  dueDate: "",
-  taskType: "Feature",
-};
+export default function TaskForm({ users = [], onSuccess, onCancel }) {
+  const { token, user } = useContext(AuthContext);
 
-const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
-  const [taskData, setTaskData] = useState(defaultTask);
-  const token = localStorage.getItem("token");
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    assignee: "",
+    status: "To Do",
+    priority: "Low",
+    dueDate: "",
+    taskType: "Feature",
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setTaskData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("📋 Creating task with:", taskData);
-    console.log("🌐 API URL:", import.meta.env.VITE_API_URL);
-    
+
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const payload = {
+        ...formData,
+        createdBy: user._id, 
       };
 
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/tasks`, taskData, config);
-      console.log("Task created successfully:", res.data);
-      console.log(" Task assignee ID:", res.data.assignee);
-      setTaskData(defaultTask);
-      if (onSuccess) onSuccess(res.data);
-      
-      e
-      alert("Task created successfully!");
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/tasks`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(" Task created:", res.data);
+      onSuccess?.();
     } catch (err) {
-      console.error(" Error submitting task:", err.response?.data || err.message);
-      alert("Failed to create task. Please try again.");
+      console.error(" Failed to create task:", err.response?.data || err);
     }
   };
 
-  return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-4 p-6 rounded-2xl backdrop-blur-lg bg-black shadow-xl border border-white/20 text-white font-orbitron transition-all duration-300"
-    >
+ return (
+  <div className="bg-black text-white p-6 rounded-xl shadow-xl w-full max-w-lg">
+    <h2 className="text-xl font-semibold text-purple-400 mb-4">Create New Task</h2>
+    <form onSubmit={handleSubmit} className="space-y-4">
+
       <input
         name="name"
-
-        value={taskData.name}
+        placeholder="Task name"
+        value={formData.name}
         onChange={handleChange}
-        placeholder="Task Name"
+        className="w-full bg-gray-800 text-white p-3 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-600"
         required
-        className="w-full p-3 rounded-md bg-black text-white placeholder-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
       />
 
       <textarea
         name="description"
-        value={taskData.description}
+        placeholder="Task description"
+        value={formData.description}
         onChange={handleChange}
-        placeholder="Description"
-        rows={3}
-        className="w-full p-3 rounded-md bg-black text-white placeholder-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
+        className="w-full bg-gray-800 text-white p-3 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-600"
       />
 
       <select
         name="assignee"
-        value={taskData.assignee}
+        value={formData.assignee}
         onChange={handleChange}
-        required
-        className="w-full p-3 rounded-md bg-black text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
+        className="w-full bg-gray-800 text-white p-3 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-600"
       >
-        <option value="">Select Assignee</option>
-        {users.map((user) => (
-          <option key={user._id} value={user._id} className="text-white">
-            {user.name || user.email}
+        <option value="">Select assignee</option>
+        {(users || []).map((u) => (
+          <option key={u._id} value={u._id}>
+            {u.name} ({u.email})
           </option>
         ))}
       </select>
 
-      <div className="grid grid-cols-2 gap-4">
-        <select
-          name="status"
-          value={taskData.status}
-          onChange={handleChange}
-          className="p-3 rounded-md bg-black text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
-        >
-          <option>Pending</option>
-          <option>In Progress</option>
-          <option>Completed</option>
-        </select>
+      <select
+        name="status"
+        value={formData.status}
+        onChange={handleChange}
+        className="w-full bg-gray-800 text-white p-3 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-600"
+      >
+        <option value="To Do">To Do</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Done">Done</option>
+      </select>
 
-        <select
-          name="priority"
-          value={taskData.priority}
-          onChange={handleChange}
-          className="p-3 rounded-md bg-black text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
-        >
-          <option>High</option>
-          <option>Medium</option>
-          <option>Low</option>
-        </select>
-      </div>
+      <select
+        name="priority"
+        value={formData.priority}
+        onChange={handleChange}
+        className="w-full bg-gray-800 text-white p-3 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-600"
+      >
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
 
-      <div className="grid grid-cols-2 gap-4">
-        <input
-          type="date"
-          name="dueDate"
-          value={taskData.dueDate}
-          onChange={handleChange}
-          required
-          className="p-3 rounded-md bg-black text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
-        />
+      <select
+        name="taskType"
+        value={formData.taskType}
+        onChange={handleChange}
+        className="w-full bg-gray-800 text-white p-3 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-600"
+      >
+        <option value="Feature">Feature</option>
+        <option value="Bug">Bug</option>
+        <option value="Chore">Chore</option>
+      </select>
 
-        <select
-          name="taskType"
-          value={taskData.taskType}
-          onChange={handleChange}
-          className="p-3 rounded-md bg-black text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
-        >
-          <option>Feature</option>
-          <option>Bug</option>
-          <option>Chore</option>
-        </select>
-      </div>
+      <input
+        type="date"
+        name="dueDate"
+        value={formData.dueDate}
+        onChange={handleChange}
+        className="w-full bg-gray-800 text-white p-3 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-600"
+      />
 
       <div className="flex justify-end gap-2 pt-2">
-        {onCancel && (
-          <button
-            type="button"
-            onClick={onCancel}
-            className="px-4 py-2 rounded-md border border-white/30 text-white/60 hover:bg-white/10"
-          >
-            Cancel
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={onCancel}
+          className="px-4 py-2 rounded bg-gray-700 hover:bg-gray-600 text-white transition"
+        >
+          Cancel
+        </button>
         <button
           type="submit"
-          className="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white shadow-md"
+          className="px-4 py-2 rounded bg-purple-600 hover:bg-purple-700 text-white font-semibold transition"
         >
-          Create
+          Create Task
         </button>
       </div>
     </form>
-  );
-};
+  </div>
+);
 
-export default TaskForm;
+}
