@@ -56,7 +56,7 @@ const fetchTasks = async () => {
 
         <div className="p-6">
           <h2 className="text-xl md:text-2xl font-semibold mb-4 text-gray-200">
-            Hello, <span className="text-cyan-400">{user?.name}</span> 👋
+            Hello, <span className="text-purple-400">{user?.name}</span> 
           </h2>
 
           <div className="flex justify-between items-center mb-6">
@@ -67,7 +67,7 @@ const fetchTasks = async () => {
               onClick={() => setRefreshKey(prev => prev + 1)}
               className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors duration-200"
             >
-              🔄 Refresh
+               Refresh
             </button>
           </div>
 

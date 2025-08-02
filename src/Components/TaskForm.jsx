@@ -53,6 +53,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
     >
       <input
         name="name"
+
         value={taskData.name}
         onChange={handleChange}
         placeholder="Task Name"
@@ -114,6 +115,7 @@ const TaskForm = ({ onSuccess, onCancel, users = [] }) => {
           name="dueDate"
           value={taskData.dueDate}
           onChange={handleChange}
+          required={true}
           className="p-3 rounded-md bg-white/20 text-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-pink-400"
         />
 
