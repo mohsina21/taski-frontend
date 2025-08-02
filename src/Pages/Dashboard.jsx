@@ -19,7 +19,7 @@ export default function Dashboard() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res);
+      
       const rawTasks = res.data || [];
 
       const cleanedTasks = rawTasks.map((task) => ({
