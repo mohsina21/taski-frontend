@@ -100,9 +100,7 @@ export default function Dashboard() {
       {showTaskForm && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50">
           <div className="bg-black border border-white/20 rounded-2xl p-6 w-[90%] max-w-xl">
-            <h2 className="text-xl font-semibold text-purple-300 mb-4">
-              Create New Task
-            </h2>
+            
             <TaskForm
               users={users} 
               onSuccess={() => {

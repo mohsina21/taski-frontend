@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     <nav className="w-full px-4 py-3 bg-transparent flex justify-center">
-      <div className="w-full max-w-4xl bg-white/10 backdrop-blur-xl border border-cyan-300/30 text-white flex justify-between items-center px-6 py-3 shadow-[0_4px_12px_rgba(0,255,255,0.1)] rounded-full transition-all duration-300 ">
+      <div className="w-full max-w-4xl bg-white/10 backdrop-blur-xl border border-purple-300/30 text-white flex justify-between items-center px-6 py-3  rounded-full transition-all duration-300 ">
         <div className="text-xl font-extrabold tracking-wide text-purple-400 drop-shadow-[0_0_4px_purple] hover:scale-105 hover:text-white transition-all duration-300">
           Taskiii
         </div>

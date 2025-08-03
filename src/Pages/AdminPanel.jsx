@@ -65,27 +65,24 @@ export default function AdminPanel() {
   };
 
   return (
-    <div className="relative min-h-screen bg-black">
-      <Navbar />
+    
 
       <div className="relative min-h-screen bg-gradient-to-br from-black via-[#0f0f0f] to-[#1a1a1a] text-white  overflow-hidden">
-        <div className="flex justify-between items-center mb-6">
+         <Navbar />
+        <div className="flex justify-between items-center mb-6 px-4 sm:px-6 md:px-10">
           <h1 className="text-4xl font-extrabold text-purple-400 drop-shadow-sm">
             Admin Panel
           </h1>
           <button
             onClick={() => setShowTaskForm(true)}
-            className="bg-purple-500 hover:bg-purple-700 text-white px-4 py-2 rounded-lg shadow-md transition-all"
+            className="bg-purple-500 hover:bg-purple-700 text-white px-5 py-2 rounded-lg shadow-md transition-all"
           >
             + Create Task
           </button>
         </div>
 {showTaskForm && (
-  <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50 px-4">
-    <div className="bg-black border border-white/20 rounded-2xl p-4 sm:p-6 w-full max-w-xl max-h-[90vh] overflow-y-auto custom-scroll">
-      <h2 className="text-xl font-semibold text-purple-300 mb-4">
-        Create New Task
-      </h2>
+  <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50">
+    <div className="bg-black border border-white/20 rounded-2xl p-6 w-[90%] max-w-xl max-h-[90vh] overflow-y-auto">
       <TaskForm
         users={users}
         onSuccess={handleNewTask}
@@ -109,6 +106,6 @@ export default function AdminPanel() {
           ))}
         </div>
       </div>
-    </div>
+  
   );
 }
